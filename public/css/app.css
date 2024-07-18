@@ -1,0 +1,55 @@
+
+/* public/css/app.css */
+
+body {
+    font-family: 'Nunito', sans-serif;
+}
+
+.question {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+}
+
+.list-group-item input[type="radio"] {
+    margin-right: 10px;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+}
+
+.pagination .page-item {
+    margin: 0 5px;
+}
+
+.pagination .page-item .page-link {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 10px;
+}
+
+.pagination .page-item .page-link:hover {
+    background-color: #f8f9fa;
+}
+
+.pagination .page-item.active .page-link {
+    background-color: #007bff;
+    color: white;
+    border-color: #007bff;
+}
+.text-danger {
+    color: red;
+}
+
+.text-success {
+    color: green;
+}

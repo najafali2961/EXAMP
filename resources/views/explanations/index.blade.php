@@ -6,7 +6,11 @@
         <ul>
             @foreach ($explanations as $explanation)
                 <li>
-                    {{ $explanation->question->text }}: {{ $explanation->statement->text }}
+                    {{-- {{ $explanation->question->text }} --}}
+                    {!! nl2br(e($explanation->question->text)) !!}
+                    :
+                    {{-- {{ $explanation->statement->text }} --}}
+                    {!! nl2br(e($explanation->statement->text)) !!}
                 </li>
             @endforeach
         </ul>

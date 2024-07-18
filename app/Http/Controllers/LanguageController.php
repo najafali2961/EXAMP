@@ -7,11 +7,7 @@ use App\Models\Language;
 
 class LanguageController extends Controller
 {
-    // public function changeLanguage(Request $request, $languageId)
-    // {
-    //     session(['language_id' => $languageId]);
-    //     return redirect()->back();
-    // }
+
     public function changeLanguages(Request $request)
     {
         $languageIds = $request->input('languages', []);

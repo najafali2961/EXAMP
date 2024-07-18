@@ -3,9 +3,18 @@
 
 @section('content')
     <div class="container">
-        <h3>{{ $subject->name }}</h3>
-        <h3>{{ $chapter->name }}</h3>
-        <h3>{{ $question->text }}</h3>
+        <h3>
+            {{-- {{ $subject->name }} --}}
+            {!! nl2br(e($subject->name)) !!}
+        </h3>
+        <h3>
+            {{-- {{ $chapter->name }} --}}
+            {!! nl2br(e($chapter->name)) !!}
+        </h3>
+        <h3>
+            {{-- {{ $question->text }} --}}
+            {!! nl2br(e($$question->text)) !!}
+        </h3>
         <ul>
             @foreach ($question->options as $option)
                 <li>{{ $option->text }}

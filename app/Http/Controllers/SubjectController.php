@@ -31,7 +31,7 @@ class SubjectController extends Controller
                     $texts[] = $text;
                 }
             }
-            $subject->name = implode('/', $texts);
+            $subject->name = implode("\n", $texts);
         });
         return view('subjects.index', compact('subjects'));
     }

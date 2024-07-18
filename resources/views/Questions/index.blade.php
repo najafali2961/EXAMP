@@ -3,16 +3,28 @@
 
 @section('content')
     <div class="container">
-        <h3>{{ $subject->name }}</h3>
-        <h3>{{ $chapter->name }}</h3>
+        <h3>
+            {{-- {{ $subject->name }} --}}
+             {!! nl2br(e( $subject->name )) !!}
+        </h3>
+        <h3>
+            {{-- {{ $chapter->name }} --}}
+              {!! nl2br(e($chapter->name )) !!}
+        </h3>
         @foreach ($questions as $question)
             <div class="question mb-4">
-                <h5>{{ $question->text }}</h5>
+                <h5>
+                    {{-- {{ $question->text }} --}}
+                    {!! nl2br(e($question->text)) !!}
+                </h5>
                 <ul class="list-group mb-3">
                     @foreach ($question->options as $option)
                         <li class="list-group-item">
                             <input type="radio" name="option_{{ $question->id }}" id="option_{{ $option->id }}">
-                            <label for="option_{{ $option->id }}">{{ $option->text }}</label>
+                            <label for="option_{{ $option->id }}">
+                                {{-- {{ $option->text }} --}}
+                                {!! nl2br(e($option->text)) !!}
+                            </label>
                         </li>
                     @endforeach
                 </ul>
@@ -31,7 +43,8 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            {{ $question->explanation->text }}
+                            {{-- {{ $question->explanation->text }} --}}
+                            {!! nl2br(e($question->explanation->text)) !!}
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

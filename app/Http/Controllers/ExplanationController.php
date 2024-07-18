@@ -30,7 +30,7 @@ class ExplanationController extends Controller
                 $texts[] = $text;
             }
         }
-        $explanation->text = implode('/', $texts);
+        $explanation->text = implode("\n", $texts);
 
         return response()->json(['text' => $explanation->text]);
     }

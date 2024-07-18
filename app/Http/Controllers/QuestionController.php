@@ -30,7 +30,7 @@ class QuestionController extends Controller
                     $texts[] = $text;
                 }
             }
-            $question->text = implode('/', $texts);
+            $question->text = implode("\n", $texts);
             $question->options->each(function ($option) use ($languageIds) {
                 $texts = [];
                 foreach ($languageIds as $languageId) {
@@ -39,7 +39,7 @@ class QuestionController extends Controller
                         $texts[] = $text;
                     }
                 }
-                $option->text = implode('/', $texts);
+                $option->text = implode("\n", $texts);
             });
             if ($question->explanation) {
                 $texts = [];
@@ -49,7 +49,7 @@ class QuestionController extends Controller
                         $texts[] = $text;
                     }
                 }
-                $question->explanation->text = implode('/', $texts);
+                $question->explanation->text = implode("\n", $texts);
             }
         });
 
@@ -67,7 +67,7 @@ class QuestionController extends Controller
                 $texts[] = $text;
             }
         }
-        $question->text = implode('/', $texts);
+        $question->text = implode("\n", $texts);
         $question->options->each(function ($option) use ($languageIds) {
             $texts = [];
             foreach ($languageIds as $languageId) {
@@ -76,7 +76,7 @@ class QuestionController extends Controller
                     $texts[] = $text;
                 }
             }
-            $option->text = implode('/', $texts);
+            $option->text = implode("\n", $texts);
         });
         if ($question->explanation) {
             $texts = [];
@@ -86,7 +86,7 @@ class QuestionController extends Controller
                     $texts[] = $text;
                 }
             }
-            $question->explanation->text = implode('/', $texts);
+            $question->explanation->text = implode("\n", $texts);
         }
 
         $chapter = $question->chapter;
@@ -110,7 +110,7 @@ class QuestionController extends Controller
                     $texts[] = $text;
                 }
             }
-            $chapter->name = implode('/', $texts);
+            $chapter->name = implode("\n", $texts);
         });
 
         return response()->json($chapters);

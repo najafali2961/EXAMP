@@ -26,7 +26,7 @@ class ChapterController extends Controller
                 $subjectTexts[] = $text;
             }
         }
-        $subject->name = implode('/', $subjectTexts);
+        $subject->name = implode("\n", $subjectTexts);
 
         // Retrieve the chapters and get their names in the required languages
         $chapters = Chapter::where('subject_id', $subjectId)->get();
@@ -38,7 +38,7 @@ class ChapterController extends Controller
                     $texts[] = $text;
                 }
             }
-            $chapter->name = implode('/', $texts);
+            $chapter->name = implode("\n", $texts);
         });
 
         return view('chapters.index', compact('chapters', 'subject'));

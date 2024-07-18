@@ -30,7 +30,7 @@ class OptionController extends Controller
                     $texts[] = $text;
                 }
             }
-            $question->text = implode('/', $texts);
+            $question->text = implode("\n", $texts);
         });
 
         return view('options.create', compact('questions', 'languages'));

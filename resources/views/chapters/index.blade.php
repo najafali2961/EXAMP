@@ -6,7 +6,7 @@
         <div class="list-group">
             @foreach ($chapters as $chapter)
                 <a href="{{ url('chapters/' . $chapter->id . '/questions') }}" class="list-group-item list-group-item-action">
-                    {{ $chapter->name }}
+                    {!! nl2br(e($chapter->name)) !!}
                 </a>
             @endforeach
         </div>

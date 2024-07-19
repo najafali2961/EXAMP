@@ -11,4 +11,8 @@ class Subject extends Model
     {
         return $this->hasMany(Chapter::class);
     }
+    public function statements()
+    {
+        return $this->morphMany(Statement::class, 'entity');
+    }
 }

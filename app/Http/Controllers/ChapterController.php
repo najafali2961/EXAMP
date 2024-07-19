@@ -43,15 +43,32 @@ class ChapterController extends Controller
 
         return view('chapters.index', compact('chapters', 'subject'));
     }
+    // public function create()
+    // {
+    //     $subjects = Subject::all();
+    //     $languages = Language::all();
+    //     $subjects->each(function ($subject) {
+    //         $subject->name = TextHelper::getText('subject', $subject->id, 1); // Default to English
+    //     });
+    //     return view('chapters.create', compact('subjects', 'languages'));
+    // }
     public function create()
     {
-        $subjects = Subject::all();
+        $languageIds = session('language_ids', [1]); // Default to language ID 1
         $languages = Language::all();
-        $subjects->each(function ($subject) {
-            $subject->name = TextHelper::getText('subject', $subject->id, 1); // Default to English
+        $subjects = Subject::with(['statements' => function ($query) use ($languageIds) {
+            $query->whereIn('language_id', $languageIds);
+        }])->get();
+
+        $subjects->each(function ($subject) use ($languageIds) {
+            $subject->name = TextHelper::getTexts('subject', $subject->id, $languageIds);
         });
+
         return view('chapters.create', compact('subjects', 'languages'));
     }
+
+
+
     public function store(Request $request)
     {
         $chapter = new Chapter();

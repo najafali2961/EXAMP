@@ -13,6 +13,7 @@ class Question extends Model
     {
         return $this->hasMany(Statement::class, 'entity_id')->where('entity_type', 'question');
     }
+
     public function chapter()
     {
         return $this->belongsTo(Chapter::class);

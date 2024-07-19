@@ -19,23 +19,18 @@ class OptionController extends Controller
 
     public function create()
     {
-        $questions = Question::all();
         $languageIds = session('language_ids', [1]); // Default to language ID 1
         $languages = Language::all();
+        $questions = Question::with(['statements' => function ($query) use ($languageIds) {
+            $query->whereIn('language_id', $languageIds);
+        }])->get();
+
         $questions->each(function ($question) use ($languageIds) {
-            $texts = [];
-            foreach ($languageIds as $languageId) {
-                $text = TextHelper::getText('question', $question->id, $languageId);
-                if ($text) {
-                    $texts[] = $text;
-                }
-            }
-            $question->text = implode("\n", $texts);
+            $question->text = TextHelper::getTexts('question', $question->id, $languageIds);
         });
 
         return view('options.create', compact('questions', 'languages'));
     }
-
     public function store(Request $request)
     {
         $option = new Option();

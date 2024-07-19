@@ -12,14 +12,34 @@ use App\Models\Language;
 
 class QuestionController extends Controller
 {
+
+
     public function index($chapterId)
     {
         $languageIds = session('language_ids', [1]); // Default to language ID 1
         $chapter = Chapter::findOrFail($chapterId);
-        $chapter->name = TextHelper::getText('chapter', $chapter->id, $languageIds);
+
+        // Fetch chapter name in multiple languages
+        $chapterNames = [];
+        foreach ($languageIds as $languageId) {
+            $text = TextHelper::getText('chapter', $chapter->id, $languageId);
+            if ($text) {
+                $chapterNames[] = $text;
+            }
+        }
+        $chapter->name = implode("\n", $chapterNames);
 
         $subject = $chapter->subject;
-        $subject->name = TextHelper::getText('subject', $subject->id, $languageIds);
+
+        // Fetch subject name in multiple languages
+        $subjectNames = [];
+        foreach ($languageIds as $languageId) {
+            $text = TextHelper::getText('subject', $subject->id, $languageId);
+            if ($text) {
+                $subjectNames[] = $text;
+            }
+        }
+        $subject->name = implode("\n", $subjectNames);
 
         $questions = Question::where('chapter_id', $chapterId)->paginate(1);
         $questions->each(function ($question) use ($languageIds) {
@@ -56,6 +76,7 @@ class QuestionController extends Controller
         return view('questions.index', compact('questions', 'chapter', 'subject'));
     }
 
+
     public function show($questionId)
     {
         $languageIds = session('language_ids', [1]); // Default to language ID 1
@@ -86,18 +107,38 @@ class QuestionController extends Controller
                     $texts[] = $text;
                 }
             }
-            $question->explanation->text = implode("\n", $texts);
+            $question->explanation->text = implode(
+                "\n",
+                $texts
+            );
         }
 
         $chapter = $question->chapter;
-        $chapter->name = TextHelper::getText('chapter', $chapter->id, $languageIds);
+
+        // Fetch chapter name in multiple languages
+        $chapterNames = [];
+        foreach ($languageIds as $languageId) {
+            $text = TextHelper::getText('chapter', $chapter->id, $languageId);
+            if ($text) {
+                $chapterNames[] = $text;
+            }
+        }
+        $chapter->name = implode("\n", $chapterNames);
 
         $subject = $chapter->subject;
-        $subject->name = TextHelper::getText('subject', $subject->id, $languageIds);
+
+        // Fetch subject name in multiple languages
+        $subjectNames = [];
+        foreach ($languageIds as $languageId) {
+            $text = TextHelper::getText('subject', $subject->id, $languageId);
+            if ($text) {
+                $subjectNames[] = $text;
+            }
+        }
+        $subject->name = implode("\n", $subjectNames);
 
         return view('questions.show', compact('question', 'chapter', 'subject'));
     }
-
     public function getChapters($subjectId)
     {
         $languageIds = session('language_ids', [1]); // Default to language ID 1

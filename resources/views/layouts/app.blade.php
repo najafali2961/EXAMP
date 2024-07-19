@@ -31,7 +31,7 @@
                  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                  <span class="navbar-toggler-icon"></span>
              </button>
-             {{-- <div class="collapse navbar-collapse" id="navbarNav">
+             <div class="collapse navbar-collapse" id="navbarNav">
                  <ul class="navbar-nav ms-auto">
                      <li class="nav-item dropdown">
                          <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
@@ -58,7 +58,7 @@
                      </li>
 
                  </ul>
-             </div> --}}
+             </div>
              <div class="collapse navbar-collapse" id="navbarNav">
                  <ul class="navbar-nav ms-auto">
                      <li class="nav-item dropdown">
@@ -82,11 +82,11 @@
                                      <a class="nav-link" href="/chapters/create">Chapters</a>
                                  </label>
                              </li>
-                             {{-- <li>
+                             <li>
                                  <label class="dropdown-item">
                                      <a class="nav-link" href="/questions/create">Questions</a>
                                  </label>
-                             </li> --}}
+                             </li>
                              <li>
                                  <label class="dropdown-item">
                                      <a class="nav-link" href="/options/create">Options</a>

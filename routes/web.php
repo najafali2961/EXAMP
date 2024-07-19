@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\ChapterController;
@@ -26,8 +25,6 @@ Route::post('/questions', [QuestionController::class, 'store'])->name('questions
 Route::get('/questions/{question}', [QuestionController::class, 'show'])->name('questions.show');
 Route::get('/chapters/{chapterId}/questions/{questionIndex?}', [QuestionController::class, 'index'])->name('questions.index');
 
-
-
 Route::get('/chapters/{subjectId}', [QuestionController::class, 'getChapters'])->name('chapters.index');
 Route::get('/questions/{chapterId}', [QuestionController::class, 'index'])->name('questions.index');
 Route::get('/questions/show/{questionId}', [QuestionController::class, 'show'])->name('questions.show');
@@ -36,6 +33,7 @@ Route::get('/questions/show/{questionId}', [QuestionController::class, 'show'])-
 Route::get('/language/{language}', [LanguageController::class, 'changeLanguage']);
 Route::get('/languages/create', [LanguageController::class, 'create'])->name('languages.create');
 Route::post('/languages', [LanguageController::class, 'store'])->name('languages.store');
+Route::post('change-languages', [LanguageController::class, 'changeLanguages'])->name('change.languages');
 
 // Options Routes
 Route::get('/options/create', [OptionController::class, 'create'])->name('options.create');
@@ -45,8 +43,3 @@ Route::post('/options', [OptionController::class, 'store'])->name('options.store
 Route::get('explanations', [ExplanationController::class, 'index'])->name('explanations.index');
 Route::get('explanations/create', [ExplanationController::class, 'create'])->name('explanations.create');
 Route::post('explanations', [ExplanationController::class, 'store'])->name('explanations.store');
-
-
-
-
-Route::post('change-languages', [LanguageController::class, 'changeLanguages'])->name('change.languages');

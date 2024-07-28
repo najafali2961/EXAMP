@@ -50,10 +50,12 @@
                                  @foreach ($languages as $language)
                                      <li>
                                          <label class="dropdown-item">
+
                                              <input type="checkbox" name="languages[]" value="{{ $language->id }}"
                                                  @if (in_array($language->id, session('language_ids', []))) checked @endif>
                                              {{ $language->name }}
                                          </label>
+
                                      </li>
                                  @endforeach
                                  <li class="dropdown-item">

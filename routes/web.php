@@ -8,7 +8,7 @@ use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\ExplanationController;
 
-// Subjects Routes
+//Subjects Routes
 Route::get('/subjects', [SubjectController::class, 'index']);
 Route::get('/subjects/{subject}/chapters', [ChapterController::class, 'index']);
 Route::get('/subjects/create', [SubjectController::class, 'create'])->name('subjects.create');

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Option;
+use App\Models\Chapter;
+use App\Models\Subject;
 use App\Models\Question;
 use App\Models\Statement;
 use App\Helpers\TextHelper;
@@ -17,10 +19,22 @@ class OptionController extends Controller
         return view('options.index', compact('options'));
     }
 
+
     public function create()
     {
         $languageIds = session('language_ids', [1]); // Default to language ID 1
         $languages = Language::all();
+
+        $subjects = Subject::all();
+        $subjects->each(function ($subject) use ($languageIds) {
+            $subject->name = TextHelper::getTexts('subject', $subject->id, $languageIds);
+        });
+
+        $chapters = Chapter::all();
+        $chapters->each(function ($chapter) use ($languageIds) {
+            $chapter->name = TextHelper::getTexts('chapter', $chapter->id, $languageIds);
+        });
+
         $questions = Question::with(['statements' => function ($query) use ($languageIds) {
             $query->whereIn('language_id', $languageIds);
         }])->get();
@@ -29,8 +43,9 @@ class OptionController extends Controller
             $question->text = TextHelper::getTexts('question', $question->id, $languageIds);
         });
 
-        return view('options.create', compact('questions', 'languages'));
+        return view('options.create', compact('subjects', 'chapters', 'questions', 'languages'));
     }
+
     public function store(Request $request)
     {
         $option = new Option();

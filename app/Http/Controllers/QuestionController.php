@@ -157,15 +157,25 @@ class QuestionController extends Controller
         return response()->json($chapters);
     }
 
+
     public function create()
     {
-        $chapters = Chapter::all();
+        $languageIds = session('language_ids', [1]); // Default to language ID 1
         $languages = Language::all();
-        $chapters->each(function ($chapter) {
-            $chapter->name = TextHelper::getText('chapter', $chapter->id, 1); // Default to English
+
+        $subjects = Subject::all();
+        $subjects->each(function ($subject) use ($languageIds) {
+            $subject->name = TextHelper::getTexts('subject', $subject->id, $languageIds);
         });
-        return view('questions.create', compact('chapters', 'languages'));
+
+        $chapters = Chapter::all();
+        $chapters->each(function ($chapter) use ($languageIds) {
+            $chapter->name = TextHelper::getTexts('chapter', $chapter->id, $languageIds);
+        });
+
+        return view('questions.create', compact('subjects', 'chapters', 'languages'));
     }
+
 
     public function store(Request $request)
     {

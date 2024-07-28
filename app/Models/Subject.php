@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Subject extends Model
 {
+    use HasFactory;
     public function chapters()
     {
         return $this->hasMany(Chapter::class);

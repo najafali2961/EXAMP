@@ -10,15 +10,7 @@ use App\Helpers\TextHelper;
 
 class SubjectController extends Controller
 {
-    // public function index()
-    // {
-    //     $languageId = session('language_id', 1); // Default to language ID 1
-    //     $subjects = Subject::all();
-    //     $subjects->each(function ($subject) use ($languageId) {
-    //         $subject->name = TextHelper::getText('subject', $subject->id, $languageId);
-    //     });
-    //     return view('subjects.index', compact('subjects'));
-    // }
+
     public function index()
     {
         $languageIds = session('language_ids', [1]); // Default to language ID 1

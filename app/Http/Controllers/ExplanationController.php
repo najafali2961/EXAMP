@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Explanation;
 use App\Models\Question;
+use App\Models\Subject;
+use App\Models\Chapter;
 use App\Models\Statement;
 use App\Models\Language;
 use Illuminate\Http\Request;
@@ -35,27 +37,33 @@ class ExplanationController extends Controller
         return response()->json(['text' => $explanation->text]);
     }
 
+
     public function create()
     {
         $languageIds = session('language_ids', [1]); // Default to language ID 1
         $languages = Language::all();
+
+        $subjects = Subject::all();
+        $subjects->each(function ($subject) use ($languageIds) {
+            $subject->name = TextHelper::getTexts('subject', $subject->id, $languageIds);
+        });
+
+        $chapters = Chapter::all();
+        $chapters->each(function ($chapter) use ($languageIds) {
+            $chapter->name = TextHelper::getTexts('chapter', $chapter->id, $languageIds);
+        });
+
         $questions = Question::with(['statements' => function ($query) use ($languageIds) {
             $query->whereIn('language_id', $languageIds);
         }])->get();
 
         $questions->each(function ($question) use ($languageIds) {
-            $texts = [];
-            foreach ($languageIds as $languageId) {
-                $text = TextHelper::getText('question', $question->id, $languageId);
-                if ($text) {
-                    $texts[] = $text;
-                }
-            }
-            $question->text = implode('/', $texts);
+            $question->text = TextHelper::getTexts('question', $question->id, $languageIds);
         });
 
-        return view('explanations.create', compact('questions', 'languages'));
+        return view('explanations.create', compact('subjects', 'chapters', 'questions', 'languages'));
     }
+
     public function store(Request $request)
     {
         $explanation = new Explanation();

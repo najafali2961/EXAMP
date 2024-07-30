@@ -64,6 +64,28 @@ class ExplanationController extends Controller
         return view('explanations.create', compact('subjects', 'chapters', 'questions', 'languages'));
     }
 
+    // public function create()
+    // {
+    //     $languageIds = session('language_ids', [1]); // Default to language ID 1
+    //     $languages = Language::all();
+    //     $questions = Question::with(['statements' => function ($query) use ($languageIds) {
+    //         $query->whereIn('language_id', $languageIds);
+    //     }])->get();
+
+    //     $questions->each(function ($question) use ($languageIds) {
+    //         $texts = [];
+    //         foreach ($languageIds as $languageId) {
+    //             $text = TextHelper::getText('question', $question->id, $languageId);
+    //             if ($text) {
+    //                 $texts[] = $text;
+    //             }
+    //         }
+    //         $question->text = implode('/', $texts);
+    //     });
+
+    //     return view('explanations.create', compact('questions', 'languages'));
+    // }
+
     public function store(Request $request)
     {
         $explanation = new Explanation();
@@ -83,6 +105,6 @@ class ExplanationController extends Controller
             }
         }
 
-        return redirect()->route('explanations.index');
+        return redirect()->route('explanations.create');
     }
 }
